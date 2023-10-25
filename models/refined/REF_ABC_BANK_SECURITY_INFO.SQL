@@ -1,0 +1,9 @@
+WITH current_from_snapshot as (
+SELECT 
+    * EXCLUDE(DBT_SCD_ID,DBT_VALID_TO,DBT_VALID_FROM,DBT_UPDATED_AT) 
+FROM 
+{{ref("SNSH_ABC_BANK_SECURITY_INFO")}}
+WHERE DBT_VALID_TO IS NULL
+)
+
+SELECT * FROM current_from_snapshot
